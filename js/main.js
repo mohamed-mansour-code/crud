@@ -67,7 +67,6 @@ buttons[1].addEventListener('click',function(){
           if(validation.valid(inputs[0] , validation.validName) & validation.valid(inputs[1] , validation.validcatalog) & validation.valid(inputs[2] , validation.validPrice) & validation.valid(textArea , validation.validDesc)){
             box.splice(index , 1 , user);
             display();
-            $("tbody").children().eq(index+1).remove();
             reset();
             setLocation();
             buttons[1].classList.add("d-none");
