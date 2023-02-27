@@ -1,0 +1,8 @@
+.table-section{
+    height: 50vh;
+    overflow: auto;
+}
+textarea{
+    height: 120px;
+    resize: none;
+}
