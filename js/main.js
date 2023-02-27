@@ -22,17 +22,7 @@ buttons[0].addEventListener('click',function(){
 
     if(validation.valid(inputs[0] , validation.validName) & validation.valid(inputs[1] , validation.validcatalog) & validation.valid(inputs[2] , validation.validPrice) & validation.valid(textArea , validation.validDesc)){
         box.push(user);
-        $("tbody").append(
-            `<tr>
-            <td class="align-middle">${box.length}</td>
-            <td class="align-middle">${user.name}</td>
-            <td class="align-middle">${user.calalog}</td>
-            <td class="align-middle">${user.price}</td>
-            <td class="align-middle">${user.desc}</td>
-            <td class="align-middle"><button onclick="update(${box.length-1})" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></td>
-            <td class="align-middle"><button onclick="del(${box.length-1})" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>`
-        );
+        display();
         reset();
         setLocation();
     };
@@ -62,31 +52,21 @@ buttons[1].addEventListener('click',function(){
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonText: 'Yes, update it!',
         cancelButtonText: 'No, cancel!',
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
           swalWithBootstrapButtons.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'updated!',
+            'Your file has been updated.',
             'success'
           )
 
           // ========== update ==========
           if(validation.valid(inputs[0] , validation.validName) & validation.valid(inputs[1] , validation.validcatalog) & validation.valid(inputs[2] , validation.validPrice) & validation.valid(textArea , validation.validDesc)){
             box.splice(index , 1 , user);
-            $("tbody").children().eq(index).before(
-                `<tr>
-            <td class="align-middle">${index+1}</td>
-            <td class="align-middle">${user.name}</td>
-            <td class="align-middle">${user.calalog}</td>
-            <td class="align-middle">${user.price}</td>
-            <td class="align-middle">${user.desc}</td>
-            <td class="align-middle"><button onclick="update(${index})" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></td>
-            <td class="align-middle"><button onclick="del(${index})" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>`
-            );
+            display();
             $("tbody").children().eq(index+1).remove();
             reset();
             setLocation();
@@ -119,11 +99,11 @@ buttons[1].addEventListener('click',function(){
 // ========== display ==========
 
 function display(){
-    var result ="";
+    tbody.innerHTML = "";
     for(let i = 0 ; i<box.length  ; i++){
         if(box[i].name.toLowerCase().startsWith(Search.value.toLowerCase())){
             let reg = new RegExp(Search.value , "i");
-            result +=`<tr>
+            tbody.innerHTML +=`<tr>
             <td class="align-middle">${i+1}</td>
             <td class="align-middle">${box[i].name.replace(reg, match => `<span class="text-warning">${match}</span>` )}</td>
             <td class="align-middle">${box[i].calalog}</td>
@@ -134,7 +114,6 @@ function display(){
         </tr>`;
         };
     };
-    tbody.innerHTML = result;
 }
 
 
