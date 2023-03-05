@@ -102,7 +102,7 @@ function display(){
     for(let i = 0 ; i<box.length  ; i++){
         if(box[i].name.toLowerCase().startsWith(Search.value.toLowerCase())){
             let reg = new RegExp(Search.value , "i");
-            tbody.innerHTML +=`<tr>
+            $("table tbody").append(`<tr>
             <td class="align-middle">${i+1}</td>
             <td class="align-middle">${box[i].name.replace(reg, match => `<span class="text-warning">${match}</span>` )}</td>
             <td class="align-middle">${box[i].calalog}</td>
@@ -110,7 +110,7 @@ function display(){
             <td class="align-middle">${box[i].desc}</td>
             <td class="align-middle"><button onclick="update(${i})" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></td>
             <td class="align-middle"><button onclick="del(${i})" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>`;
+        </tr>`);
         };
     };
 }
